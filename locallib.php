@@ -43,8 +43,7 @@ define('CIABINITIALSPROFILEPICS_SIZE', 500);
 define('CIABINITIALSPROFILEPICS_SHAPE', 'circle');
 
 // Font to use.
-// define('CIABINITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
-define('CIABINITIALSPROFILEPICS_FONT', 'calibri.ttf');
+define('CIABINITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
 
 // Colours.
 define('CIABINITIALSPROFILEPICS_COLOURS', [
