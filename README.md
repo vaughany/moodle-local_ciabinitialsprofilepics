@@ -95,6 +95,7 @@ I've noticed that the images this plugin generates are around 18-20kb, give or t
 
 * 2017-03-13:     v1.0        Initial release.
 * 2017-03-14:     v1.0.1      Use the correct font; update the current user's session with the new image.
+* 2017-03-14:     v1.0.2      Missed a warning about duplicate admin pages - even though they work as intended.
 
 
 ## Licence
