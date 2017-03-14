@@ -81,7 +81,7 @@ function ciabinitialsprofilepics_profile_picture_exists($event) : bool {
  */
 function create_and_save_to_profile($user) {
 
-    global $CFG, $DB;
+    global $CFG, $DB, $usernew;
 
     $canvas = ciabinitialsprofilepics_generate_profile_pic(ciabinitialsprofilepics_get_initials_from_user($user));
 
@@ -93,6 +93,8 @@ function create_and_save_to_profile($user) {
     unlink($tempfile);
 
     $DB->set_field('user', 'picture', $newpicture, ['id' => $user->id]);
+
+    $usernew->picture = $newpicture;
 
     return true;
 }
