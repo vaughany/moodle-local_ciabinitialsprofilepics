@@ -94,6 +94,7 @@ I've noticed that the images this plugin generates are around 18-20kb, give or t
 ## Changelog
 
 * 2017-03-13:     v1.0        Initial release.
+* 2017-03-14:     v1.0.1      Use the correct font; update the current user's session with the new image.
 
 
 ## Licence
