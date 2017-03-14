@@ -25,7 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'CiaB Initials Profile Pics';
-$string['pluginname:testing'] = 'CiaB Initials Profile Pics - Testing';
 
 $string['settings'] = 'Settings';
 

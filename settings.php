@@ -29,11 +29,12 @@ if ($hassiteconfig) {
 
     // Link to a 'testing' page.
     $ADMIN->add('development', new admin_externalpage('local_ciabinitialsprofilepics_testing',
-        get_string('pluginname:testing', 'local_ciabinitialsprofilepics'),
+        get_string('pluginname', 'local_ciabinitialsprofilepics'),
         new moodle_url('/local/ciabinitialsprofilepics/testing.php')));
 
     // Create settings page.
     $settings = new admin_settingpage('local_ciabinitialsprofilepics', get_string('pluginname', 'local_ciabinitialsprofilepics'));
+    $ADMIN->add('accounts', $settings);
     $ADMIN->add('localplugins', $settings);
 
     $settings->add(new admin_setting_heading(
