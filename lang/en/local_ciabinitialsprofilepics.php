@@ -41,5 +41,29 @@ $string['forcecolour_help'] = "If you would like all images to use a specific ba
 $string['gdenabled'] = 'GD image library missing.';
 $string['gdenabled_help'] = 'The GD image library is a prerequisite for this plugin AND Moodle, but does not seem to be installed.';
 
+$string['fontsize'] = 'Font Size';
+$string['fontsize_help'] = 'Choose an appropriate font size.';
+$string['extralarge'] = 'Extra Large';
+$string['large'] = 'Large';
+$string['medium'] = 'Medium';
+$string['small'] = 'Small';
+
+$string['fontalpha'] = 'Font Alpha';
+$string['fontalpha_help'] = 'Choose the alpha-transparency level of the font (colour is white).';
+
 $string['testing'] = 'Testing';
 $string['testing_help'] = '<a href="{$a->link}">Click here</a> to test the plugin works correctly. (Save any changes first.)';
+
+$string['shape'] = 'Image Shape';
+$string['shape_help'] = 'The shape of the image.';
+$string['shape:circle']               = 'Circle';
+$string['shape:square']               = 'Square';
+$string['shape:rounded_square']       = 'Rounded Square';
+$string['shape:upslash']              = 'Upward Slash';
+$string['shape:downslash']            = 'Downward Slash';
+$string['shape:leftslash']            = 'Left Slash';
+$string['shape:rightslash']           = 'Right Slash';
+$string['shape:hexagon_horizontal']   = 'Horizontal Hexagon';
+$string['shape:hexagon_vertical']     = 'Vertical Hexagon';
+$string['shape:ciab']                 = 'CiaB Logo';
+$string['shape:star']                 = 'Star';

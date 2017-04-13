@@ -66,7 +66,11 @@ As new users are created, they will automatically get a profile picture created 
 
 **Random Colour:** Colours are usually chosen based on a user's first initial, so that if an image is removed and recreated, that user will get the same background colour. Check this option to choose a colour from the built-in palette utterly at random instead.
 
-**Force Colour**: Pick a colour or type in a valid CSS hexadecimal colour code to force all images to use this colour.
+**Force Colour:** Pick a colour or type in a valid CSS hexadecimal colour code to force all images to use this colour.
+
+**Font Size:** Choose to have a big font which almost extends beyond the limit of the image, or a small font which is all clearly visible. Defaults to extra large (quite abstract).
+
+**Font Alpha:** Choose the level of transparency, from 20% visible to 80% visible. (Defaults to just 20%.)
 
 **Note:** Some parts of the plugin without configuration settings can still be changed if you are happy to hack the `locallib.php` file.  Most common settings are constants at the beginning of the file and have names like `CIABINITIALSPROFILEPICS_BG_ALPHA`.
 
@@ -75,10 +79,10 @@ As new users are created, they will automatically get a profile picture created 
 
 Ideas I have had for future developments. If you want a feature added, raise an issue or send a pull request. :)
 
-* Shape selection. Some Moodle themes show pictures as circles but the plugin generates square images initially.
-* Alpha-transparency options.
+* More shapes (some ideas, some implemented).
 * Multiple font choices, probably from a folder in the plugin, possibly using [Google Fonts](https://github.com/google/fonts).
 * Editing of the built-in colour palette.
+* White or black text (multiple colours seems unnecessary...?).
 * Option to find all users without a profile picture and make them one.
   * Potentially do the above e.g. daily, via a scheduled task.
 * Option to remove all profile pictures and generate new ones.
@@ -96,6 +100,10 @@ I've noticed that the images this plugin generates are around 18-20kb, give or t
 * 2017-03-13:     v1.0        Initial release.
 * 2017-03-14:     v1.0.1      Use the correct font; update the current user's session with the new image.
 * 2017-03-14:     v1.0.2      Missed a warning about duplicate admin pages - even though they work as intended.
+* 2017-04-01:     v1.0.3      Refactored so that options and testing are easier to implement. Fixed a few minor bugs. Image size and scaling improved.
+* 2017-04-02:     v1.0.4      Added font size and alpha-level settings (and corresponding tests).
+* 2017-04-05:     v1.0.5      Replaced `$str[0]` with `mb_substr($str, 0, 1)` to better handle UTF8 characters. Unit tests.
+* 2017-04-07:     v1.0.6      Shape selection option and more shapes.
 
 
 ## Licence

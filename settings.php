@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+require_once(dirname(__FILE__) . '/locallib.php');
+
 // Lots of goodness here: /admin/settings/users.php.
 if ($hassiteconfig) {
 
@@ -73,6 +75,37 @@ if ($hassiteconfig) {
         get_string('forcecolour_help', 'local_ciabinitialsprofilepics'),
         '',
         null
+    ));
+
+    // Shape.
+    $shapes = [];
+    foreach (CIABINITIALSPROFILEPICS_SHAPES as $shape) {
+        $shapes[$shape] = get_string("shape:{$shape}", 'local_ciabinitialsprofilepics');
+    }
+    $settings->add(new admin_setting_configselect(
+        'local_ciabinitialsprofilepics/shape',
+        get_string('shape', 'local_ciabinitialsprofilepics'),
+        get_string('shape_help', 'local_ciabinitialsprofilepics'),
+        CIABINITIALSPROFILEPICS_SHAPES_SQUARE,
+        $shapes
+    ));
+
+    // Font size.
+    $settings->add(new admin_setting_configselect(
+        'local_ciabinitialsprofilepics/fontsize',
+        get_string('fontsize', 'local_ciabinitialsprofilepics'),
+        get_string('fontsize_help', 'local_ciabinitialsprofilepics'),
+        '1.4',
+        CIABINITIALSPROFILEPICS_FONTSIZE
+    ));
+
+    // Font alpha-transparency.
+    $settings->add(new admin_setting_configselect(
+        'local_ciabinitialsprofilepics/fontalpha',
+        get_string('fontalpha', 'local_ciabinitialsprofilepics'),
+        get_string('fontalpha_help', 'local_ciabinitialsprofilepics'),
+        '0.2',
+        CIABINITIALSPROFILEPICS_FONTALPHA
     ));
 
     $testinglink = (object) ['link' => $CFG->wwwroot . '/local/ciabinitialsprofilepics/testing.php'];
