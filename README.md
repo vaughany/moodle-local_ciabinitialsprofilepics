@@ -104,6 +104,7 @@ I've noticed that the images this plugin generates are around 18-20kb, give or t
 * 2017-04-02:     v1.0.4      Added font size and alpha-level settings (and corresponding tests).
 * 2017-04-05:     v1.0.5      Replaced `$str[0]` with `mb_substr($str, 0, 1)` to better handle UTF8 characters. Unit tests.
 * 2017-04-07:     v1.0.6      Shape selection option and more shapes.
+* 2017-05-10:     v1.0.7      Fixes for some of the issues raised by moodle.org's plugin validation process.
 
 
 ## Licence
