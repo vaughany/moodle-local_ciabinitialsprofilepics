@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<libraries>
+    <library>
+        <location>vendor/intervention/image</location>
+        <name>Intervention Image</name>
+        <version>2.3</version>
+        <license>MIT</license>
+        <licenseversion></licenseversion>
+    </library>
+    <library>
+        <location>vendor/guzzlehttp/psr7/</location>
+        <name>PSR-7 Message Implementation</name>
+        <version>1.4.2</version>
+        <license>MIT</license>
+        <licenseversion></licenseversion>
+    </library>
+    <library>
+        <location>vendor/psr/http-message/</location>
+        <name>PSR Http Message</name>
+        <version>1.0.1</version>
+        <license>MIT</license>
+        <licenseversion></licenseversion>
+    </library>
+</libraries>
