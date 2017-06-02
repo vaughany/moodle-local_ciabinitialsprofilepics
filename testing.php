@@ -45,7 +45,7 @@ $size       = 400;
 $fontsize   = get_config('local_ciabinitialsprofilepics', 'fontsize');
 $fontalpha  = get_config('local_ciabinitialsprofilepics', 'fontalpha');
 
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen($initials, $shape, $colour, 200, $fontsize, $fontalpha)]);
+echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen($initials, $shape, $colour, $size, $fontsize, $fontalpha)]);
 
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('No Settings At All', 4);
