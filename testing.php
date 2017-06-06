@@ -44,19 +44,27 @@ $colour     = ciabinitialsprofilepics_get_working_colour($initials);
 $size       = 400;
 $fontsize   = get_config('local_ciabinitialsprofilepics', 'fontsize');
 $fontalpha  = get_config('local_ciabinitialsprofilepics', 'fontalpha');
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen($initials, $shape, $colour, $size, $fontsize, $fontalpha)]);
 
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen($initials, $shape, $colour, $size, $fontsize, $fontalpha)]);
+// echo $OUTPUT->heading('Image generated for unit testing purposes.', 6);
+// $initials       = ['A', 'Z'];
+// $shape          = CIABINITIALSPROFILEPICS_SHAPES_SQUARE;
+// $colour         = ciabinitialsprofilepics_get_working_colour($initials);
+// $size           = 200;
+// $fontsize       = 1.4;
+// $fontalpha      = 0.2;
+// echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen($initials, $shape, $colour, $size, $fontsize, $fontalpha)]);
 
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('No Settings At All', 4);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen()]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen()]);
 
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('Testing for Anything', 4);
 foreach (CIABINITIALSPROFILEPICS_SHAPES as $shape) {
     foreach ([['日', '本'], ['A', 'B'], ['C', 'D'], ['E', 'F'], ['G', 'H']] as $initials) {
         $colour = ciabinitialsprofilepics_get_colour_from_initials($initials);
-        echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen($initials, $shape, $colour, 200)]);
+        echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen($initials, $shape, $colour, 200)]);
     }
     echo html_writer::empty_tag('br');
 }
@@ -67,7 +75,7 @@ foreach (CIABINITIALSPROFILEPICS_SHAPES as $shape) {
     for ($j = 0; $j <= $ll; $j++) {
         $initials = [$l[$j], $l[$j]];
         $colour = ciabinitialsprofilepics_get_colour_from_initials($initials);
-        echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen($initials, $shape, $colour, 100)]);
+        echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen($initials, $shape, $colour, 100)]);
     }
     echo html_writer::empty_tag('br');
 }
@@ -78,7 +86,7 @@ for ($j = 1; $j <= 40; $j++) {
     $initials = [$l[rand(0, $ll)], $l[rand(0, $ll)]];
     $shape = CIABINITIALSPROFILEPICS_SHAPES[rand(0, count(CIABINITIALSPROFILEPICS_SHAPES) - 1)];
     $colour = ciabinitialsprofilepics_get_colour_from_initials($initials);
-    echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen($initials, $shape, $colour, 100)]);
+    echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen($initials, $shape, $colour, 100)]);
 }
 
 echo html_writer::empty_tag('hr');
@@ -87,7 +95,7 @@ foreach (CIABINITIALSPROFILEPICS_SHAPES as $shape) {
     $colour = ciabinitialsprofilepics_get_random_colour();
     foreach ([25, 33, 50, 75, 100, 150, 250, 333, 500] as $size) {
         $s = (string) $size;
-        echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen([$s[0], $s[1]], $shape, $colour, $size)]);
+        echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen([$s[0], $s[1]], $shape, $colour, $size)]);
     }
     echo html_writer::empty_tag('br');
 }
@@ -95,32 +103,32 @@ foreach (CIABINITIALSPROFILEPICS_SHAPES as $shape) {
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('One Each of All ' . count(CIABINITIALSPROFILEPICS_COLOURS) . ' Colours', 4);
 foreach (CIABINITIALSPROFILEPICS_COLOURS as $colour) {
-    echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['A', 'B'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, $colour, 200)]);
+    echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['A', 'B'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, $colour, 200)]);
 }
 
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('One Each of All ' . count(CIABINITIALSPROFILEPICS_FONTSIZE) . ' Font Sizes', 4);
 $colour = CIABINITIALSPROFILEPICS_COLOURS[4];
 foreach (CIABINITIALSPROFILEPICS_FONTSIZE as $fontsize => $name) {
-    echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['A', 'B'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, $colour, 250, $fontsize)]);
+    echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['A', 'B'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, $colour, 250, $fontsize)]);
 }
 
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('One Each of All ' . count(CIABINITIALSPROFILEPICS_FONTSIZE) . ' Font Alpha-Transparency Settings', 4);
 $colour = CIABINITIALSPROFILEPICS_COLOURS[4];
 foreach (CIABINITIALSPROFILEPICS_FONTALPHA as $fontalpha => $name) {
-    echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['A', 'B'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, $colour, 200, 1.4, $fontalpha)]);
+    echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['A', 'B'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, $colour, 200, 1.4, $fontalpha)]);
 }
 
 echo html_writer::empty_tag('hr');
 echo $OUTPUT->heading('Coach in a Box!', 4);
 
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['C', 'o'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['a', 'c'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['h', ' '], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['i', 'n'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, '#00aee0', 150, null, 0.4)]);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['a', ' '], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, '#00b3e6', 150, null, 0.4)]);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['B', 'o'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
-echo html_writer::empty_tag('img', ['src' => create_and_dump_onscreen(['x', '!'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['C', 'o'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['a', 'c'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['h', ' '], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['i', 'n'], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, '#00aee0', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['a', ' '], CIABINITIALSPROFILEPICS_SHAPES_CIRCLE, '#00b3e6', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['B', 'o'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
+echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['x', '!'], CIABINITIALSPROFILEPICS_SHAPES_SQUARE, '#007aa1', 150, null, 0.4)]);
 
 echo $OUTPUT->footer();

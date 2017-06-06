@@ -66,15 +66,14 @@ define('CIABINITIALSPROFILEPICS_SHAPES', [
 define('CIABINITIALSPROFILEPICS_SHAPE', CIABINITIALSPROFILEPICS_SHAPES_SQUARE);
 
 // Font to use.
-// define('CIABINITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
-define('CIABINITIALSPROFILEPICS_FONT', 'calibri.ttf');
+define('CIABINITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
+// define('CIABINITIALSPROFILEPICS_FONT', 'calibri.ttf');
 
 // Colours.
 define('CIABINITIALSPROFILEPICS_COLOURS', [
     // Default generic colours.
     "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50",
     "#f1c40f", "#e67e22", "#e74c3c", "#dce0e1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d",
-
 ]);
 
 // Colours used to darken and lighten other colours by layering on top.
@@ -121,7 +120,7 @@ function ciabinitialsprofilepics_profile_picture_exists($event) : bool {
 
     $user = $DB->get_record('user', ['id' => $event->relateduserid]);
     if ($user->picture == 0) {
-        return create_and_save_to_profile($user);
+        return ciabinitialsprofilepics_create_and_save_to_profile($user);
     }
     return true;
 }
@@ -131,7 +130,7 @@ function ciabinitialsprofilepics_profile_picture_exists($event) : bool {
  * @param object user   Moodle user object.
  * @return bool
  */
-function create_and_save_to_profile($user) : bool {
+function ciabinitialsprofilepics_create_and_save_to_profile($user) : bool {
 
     global $CFG, $DB, $usernew;
 
@@ -146,9 +145,7 @@ function create_and_save_to_profile($user) : bool {
     // Initials, shape, colour, size, fontsize, fontalpha.
     $canvas = ciabinitialsprofilepics_generate_profile_pic($initials, $shape, $colour, $size, $fontsize, $fontalpha);
 
-    $dir = make_request_directory();
-    $tempfile = $dir . $user->id . '.png';
-    $canvas->save($tempfile);
+    $tempfile = ciabinitialsprofilepics_save_to_disk($canvas, $user);
 
     $newpicture = (int) process_new_icon(context_user::instance($user->id, MUST_EXIST), 'user', 'icon', 0, $tempfile);
     $DB->set_field('user', 'picture', $newpicture, ['id' => $user->id]);
@@ -156,6 +153,18 @@ function create_and_save_to_profile($user) : bool {
     $usernew->picture = $newpicture;
 
     return true;
+}
+
+/**
+ * Performs the action of saving the canvas object to disk, temporarily.
+ * @param object canvas         Canvas image object.
+ * @param object user           User object.
+ * @return path to temporary file and folder.
+ */
+function ciabinitialsprofilepics_save_to_disk($canvas, $user) {
+    $tempfile = make_request_directory() . $user->id . '.png';
+    $canvas->save($tempfile);
+    return $tempfile;
 }
 
 /**
@@ -168,7 +177,7 @@ function create_and_save_to_profile($user) : bool {
  * @param float fontalpha       Alpha-transparency.
  * @return string               'data-url' encoded image.
  */
-function create_and_dump_onscreen(
+function ciabinitialsprofilepics_create_and_dump_onscreen(
     array $initials = null,
     string $shape = null,
     string $colour = null,
@@ -514,11 +523,13 @@ function ciabinitialsprofilepics_get_working_colour(array $initials = null) {
  */
 function ciabinitialsprofilepics_get_colour_from_initials(array $initials = null) {
     $initials = $initials ?? ['A', 'Z'];
+    $colour = false;
 
     $charindex      = ord($initials[0]);
-    // The '-5' starts capitals 'A' at 0, 'B' at 1 and so on. Just 'cos! (Ignores 'a', 'b' etc.)
-    $colourindex    = ($charindex - 5) % count(CIABINITIALSPROFILEPICS_COLOURS);
-    $colour         = CIABINITIALSPROFILEPICS_COLOURS[$colourindex];
+    $colourindex    = $charindex % count(CIABINITIALSPROFILEPICS_COLOURS);
+    if ($colourindex >= 0) {
+        $colour         = CIABINITIALSPROFILEPICS_COLOURS[$colourindex];
+    }
     // If no colour selected for some reason, pick a random one.
     if (!$colour) {
         $colour     = ciabinitialsprofilepics_get_random_colour();
