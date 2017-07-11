@@ -134,6 +134,10 @@ function ciabinitialsprofilepics_create_and_save_to_profile($user) : bool {
 
     global $CFG, $DB, $usernew;
 
+    if (!isset($usernew)) {
+        return false;
+    }
+
     $initials   = ciabinitialsprofilepics_get_initials_from_user($user);
     // TODO: config option.
     $shape      = get_config('local_ciabinitialsprofilepics', 'shape');
