@@ -230,12 +230,12 @@ function ciabinitialsprofilepics_generate_profile_pic(
 ) {
 
     // Should have all decent params passed in, so do brief sanity checks only.
-    $initials   = $initials ?? ciabinitialsprofilepics_get_random_initials();
-    $shape      = $shape ?? CIABINITIALSPROFILEPICS_SHAPE;
-    $colour     = $colour ?? ciabinitialsprofilepics_get_random_colour();
-    $size       = $size ?? CIABINITIALSPROFILEPICS_SIZE;
-    $fontsize   = $fontsize ?? 1.4;
-    $fontalpha  = $fontalpha ?? 0.2;
+    $initials   = $initials     ?? ciabinitialsprofilepics_get_random_initials();
+    $shape      = $shape        ?? CIABINITIALSPROFILEPICS_SHAPE;
+    $colour     = $colour       ?? ciabinitialsprofilepics_get_random_colour();
+    $size       = $size         ?? CIABINITIALSPROFILEPICS_SIZE;
+    $fontsize   = $fontsize     ?? 1.4;
+    $fontalpha  = $fontalpha    ?? 0.2;
 
     global $CFG;
 
@@ -369,14 +369,14 @@ function ciabinitialsprofilepics_generate_profile_pic(
 
         // Shadow bit (make a line, blur it).
         // https://github.com/Intervention/image/issues/240
-        $height = 5;
-        $canvas->polygon([
-            $points1[10], $points1[11], $points1[0], $points1[1], $points1[2], $points1[3],
-            $points1[2], $points1[3] - $height, $points1[0], $points1[1] - $height, $points1[10], $points1[11] - $height
-        ], function ($draw) use ($colour) {
-            $draw->background('#000');
-        });
-        $canvas->blur(50);
+        // $height = 5;
+        // $canvas->polygon([
+        //     $points1[10], $points1[11], $points1[0], $points1[1], $points1[2], $points1[3],
+        //      $points1[2], $points1[3] - $height, $points1[0], $points1[1] - $height, $points1[10], $points1[11] - $height
+        // ], function ($draw) use ($colour) {
+        //     $draw->background('#000');
+        // });
+        // $canvas->blur(50);
 
         $canvas->polygon([
             $points1[0], $points1[1], $points1[2], $points1[3], $points1[4], $points1[5],
