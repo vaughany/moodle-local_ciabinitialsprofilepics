@@ -18,7 +18,7 @@
  * Local libraries.
  *
  * @package     local_ciabinitialsprofilepics
- * @copyright   2017 Coach in a Box <paul.vaughan@coachinabox.biz>
+ * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -46,7 +46,6 @@ define('CIABINITIALSPROFILEPICS_SHAPES_LEFTSLASH', 'leftslash');
 define('CIABINITIALSPROFILEPICS_SHAPES_RIGHTSLASH', 'rightslash');
 define('CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL', 'hexagon_horizontal');
 define('CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL', 'hexagon_vertical');
-define('CIABINITIALSPROFILEPICS_SHAPES_CIAB', 'ciab');
 define('CIABINITIALSPROFILEPICS_SHAPES_STAR', 'star');
 define('CIABINITIALSPROFILEPICS_SHAPES', [
     CIABINITIALSPROFILEPICS_SHAPES_CIRCLE,
@@ -58,7 +57,6 @@ define('CIABINITIALSPROFILEPICS_SHAPES', [
     CIABINITIALSPROFILEPICS_SHAPES_RIGHTSLASH,
     CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL,
     CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL,
-    CIABINITIALSPROFILEPICS_SHAPES_CIAB,
     CIABINITIALSPROFILEPICS_SHAPES_STAR,
 ]);
 
@@ -67,7 +65,6 @@ define('CIABINITIALSPROFILEPICS_SHAPE', CIABINITIALSPROFILEPICS_SHAPES_SQUARE);
 
 // Font to use.
 define('CIABINITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
-// define('CIABINITIALSPROFILEPICS_FONT', 'calibri.ttf');
 
 // Colours.
 define('CIABINITIALSPROFILEPICS_COLOURS', [
@@ -81,7 +78,6 @@ define('CIABINITIALSPROFILEPICS_COLOUR_DARKEN', [0, 0, 0, .3]);
 define('CIABINITIALSPROFILEPICS_COLOUR_LIGHTEN', [255, 255, 255, .2]);
 
 // Pool of letters (and numbers, symbols as appropriate) for testing and if no initials supplied.
-// define('CIABINITIALSPROFILEPICS_INITIALSPOOL', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!?#@');
 define('CIABINITIALSPROFILEPICS_INITIALSPOOL', 'ABCDE12345!?#@¥£€$¢₡₢₣₤₥₦₧₨₩₪₫₭₮₯₹·');
 
 // Font sizes.
@@ -230,12 +226,12 @@ function ciabinitialsprofilepics_generate_profile_pic(
 ) {
 
     // Should have all decent params passed in, so do brief sanity checks only.
-    $initials   = $initials     ?? ciabinitialsprofilepics_get_random_initials();
-    $shape      = $shape        ?? CIABINITIALSPROFILEPICS_SHAPE;
-    $colour     = $colour       ?? ciabinitialsprofilepics_get_random_colour();
-    $size       = $size         ?? CIABINITIALSPROFILEPICS_SIZE;
-    $fontsize   = $fontsize     ?? 1.4;
-    $fontalpha  = $fontalpha    ?? 0.2;
+    $initials   = $initials ?? ciabinitialsprofilepics_get_random_initials();
+    $shape      = $shape ?? CIABINITIALSPROFILEPICS_SHAPE;
+    $colour     = $colour ?? ciabinitialsprofilepics_get_random_colour();
+    $size       = $size ?? CIABINITIALSPROFILEPICS_SIZE;
+    $fontsize   = $fontsize ?? 1.4;
+    $fontalpha  = $fontalpha ?? 0.2;
 
     global $CFG;
 
@@ -246,8 +242,6 @@ function ciabinitialsprofilepics_generate_profile_pic(
         $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->circle($size - 1, $size / 2, $size / 2, function ($draw) use ($colour) {
             $draw->background($colour);
-            // TODO: Borders? Looks bad. :(
-            // $draw->border(5, '#0000ff');
         });
 
     } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE) {
@@ -310,7 +304,6 @@ function ciabinitialsprofilepics_generate_profile_pic(
     } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL) {
         $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
 
-        // http://stackoverflow.com/questions/7198144/how-to-draw-a-n-sided-regular-polygon-in-cartesian-coordinates
         $theta  = 0; // Hexagon with flat sides at the top and bottom.
         $points = 6;
         for ($j = 0; $j <= $points - 1; $j++) {
@@ -348,84 +341,6 @@ function ciabinitialsprofilepics_generate_profile_pic(
         ];
         $canvas->polygon($points, function ($draw) use ($colour) {
             $draw->background($colour);
-        });
-
-    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_CIAB) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
-
-        $theta      = pi() / 2;
-        $points1    = $points2 = $points3 = [];
-        $numpoints  = 6;
-
-        // Generates points for the outer (largest), middle, and inner (smallest) hexagon.
-        for ($j = 0; $j <= $numpoints - 1; $j++) {
-            $points1[] = (int) ($hsize * cos(2 * pi() * $j / $numpoints + $theta) + $hsize);
-            $points1[] = (int) ($hsize * sin(2 * pi() * $j / $numpoints + $theta) + $hsize);
-            $points2[] = (int) (($hsize / 2) * cos(2 * pi() * $j / $numpoints + $theta) + $hsize);
-            $points2[] = (int) (($hsize / 2) * sin(2 * pi() * $j / $numpoints + $theta) + $hsize);
-            $points3[] = (int) (($hsize / 3) * cos(2 * pi() * $j / $numpoints + $theta) + $hsize);
-            $points3[] = (int) (($hsize / 3) * sin(2 * pi() * $j / $numpoints + $theta) + $hsize);
-        }
-
-        // Shadow bit (make a line, blur it).
-        // https://github.com/Intervention/image/issues/240
-        // $height = 5;
-        // $canvas->polygon([
-        //     $points1[10], $points1[11], $points1[0], $points1[1], $points1[2], $points1[3],
-        //      $points1[2], $points1[3] - $height, $points1[0], $points1[1] - $height, $points1[10], $points1[11] - $height
-        // ], function ($draw) use ($colour) {
-        //     $draw->background('#000');
-        // });
-        // $canvas->blur(50);
-
-        $canvas->polygon([
-            $points1[0], $points1[1], $points1[2], $points1[3], $points1[4], $points1[5],
-            $points2[4], $points2[5], $points2[2], $points2[3], $points2[0], $points2[1]
-        ], function ($draw) use ($colour) {
-            $draw->background($colour);
-        });
-        $canvas->polygon([
-            $points1[4], $points1[5], $points1[6], $points1[7], $points1[8], $points1[9],
-            $points2[8], $points2[9], $points2[6], $points2[7], $points2[4], $points2[5]
-        ], function ($draw) use ($colour) {
-            $draw->background($colour);
-        });
-        $canvas->polygon([
-            $points1[8], $hsize, $points1[10], $points1[11], $points1[0], $points1[1],
-            $points2[0], $points2[1]
-        ], function ($draw) use ($colour) {
-            $draw->background($colour);
-        });
-
-        // Draw the small hexagon.
-        $canvas->polygon($points3, function ($draw) use ($colour) {
-            $draw->background($colour);
-        });
-
-        // Adding the alpha-level stuff.
-        $canvas->polygon([
-            $points1[0], $points1[1], $points1[2], $points1[3], $points1[4], $points1[5],
-            $points2[4], $points2[5], $points2[2], $points2[3], $points2[0], $points2[1]
-        ], function ($draw) {
-            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_DARKEN);
-        });
-        $canvas->polygon([
-            $points1[4], $points1[5], $points1[6], $points1[7], $points1[8], $points1[9],
-            $points2[8], $points2[9], $points2[6], $points2[7], $points2[4], $points2[5]
-        ], function ($draw) {
-            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_LIGHTEN);
-        });
-        $canvas->polygon([
-            $points3[0], $points3[1], $points3[2], $points3[3], $points3[4], $points3[5],
-            $hsize, $hsize
-        ], function ($draw) {
-            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_DARKEN);
-        });
-        $canvas->polygon([
-            $points3[4], $points3[5], $points3[6], $points3[7], $points3[8], $points3[9],
-            $hsize, $hsize
-        ], function ($draw) {
-            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_LIGHTEN);
         });
 
     } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_STAR) {

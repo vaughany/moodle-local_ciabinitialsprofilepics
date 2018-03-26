@@ -17,16 +17,16 @@
 /**
  * Defines the version details.
  *
- * @package    local_ciabinitialsprofilepics
- * @copyright  2017 Coach in a Box <paul.vaughan@coachinabox.biz>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_ciabinitialsprofilepics
+ * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component      = 'local_ciabinitialsprofilepics';
-$plugin->version        = 2017060600;
-$plugin->release        = 'Version 1.0.8';
+$plugin->version        = 2018032600;
+$plugin->release        = 'Version 1.1.1';
 $plugin->requires       = 2016120500; // 3.2.
 $plugin->maturity       = MATURITY_BETA;
 $plugin->cron           = 0;

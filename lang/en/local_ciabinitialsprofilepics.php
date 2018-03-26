@@ -17,15 +17,15 @@
 /**
  * English strings for local_ciabinitialsprofilepics.
  *
- * @package    local_ciabinitialsprofilepics
- * @copyright  2017 Coach in a Box <paul.vaughan@coachinabox.biz>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_ciabinitialsprofilepics
+ * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'CiaB Initials Profile Pics';
-$string['pluginname:testing'] = 'CiaB Initials Profile Pics - Testing';
+$string['pluginname'] = 'Initials Profile Pics';
+$string['pluginname:testing'] = 'Initials Profile Pics - Testing';
 
 $string['settings'] = 'Settings';
 
@@ -65,5 +65,17 @@ $string['shape:leftslash']            = 'Left Slash';
 $string['shape:rightslash']           = 'Right Slash';
 $string['shape:hexagon_horizontal']   = 'Horizontal Hexagon';
 $string['shape:hexagon_vertical']     = 'Vertical Hexagon';
-$string['shape:ciab']                 = 'CiaB Logo';
 $string['shape:star']                 = 'Star';
+
+$string['testing:testing']          = 'Testing';
+$string['testing:yourprofile']      = 'Your Profile Picture';
+$string['testing:yourprofile_desc']  = 'With the currently saved settings, your profile image should look like this. (Note that if you have changed the settings but have not regenerated your profile image, the two may differ.)';
+$string['testing:nosettings']       = 'No Settings At All';
+$string['testing:anything']         = 'Testing for Anything';
+$string['testing:generic']          = 'Generic Lettters and Common Symbols';
+$string['testing:random']           = 'Random Letters, Numbers and Symbols';
+$string['testing:different']        = 'Different Sizes';
+$string['testing:oneeachcolours']   = 'One Each of All {$a} Colours';
+$string['testing:oneeachfontsizes'] = 'One Each of All {$a} Font Sizes';
+$string['testing:oneeachfontalpha'] = 'One Each of All {$a} Font Alpha-Transparency Settings';
+$string['testing:unittesting']      = 'Image generated for unit testing purposes';

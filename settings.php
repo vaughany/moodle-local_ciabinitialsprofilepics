@@ -17,9 +17,9 @@
 /**
  * Add a page/pages to admin menu.
  *
- * @package    local_ciabinitialsprofilepics
- * @copyright  2017 Coach in a Box <paul.vaughan@coachinabox.biz>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_ciabinitialsprofilepics
+ * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
