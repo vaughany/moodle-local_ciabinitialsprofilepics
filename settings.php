@@ -17,9 +17,9 @@
 /**
  * Add a page/pages to admin menu.
  *
- * @package     local_initialsprofilepics
- * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    local_ciabinitialsprofilepics
+ * @copyright  2017 Coach in a Box <paul.vaughan@coachinabox.biz>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
@@ -30,89 +30,89 @@ require_once(dirname(__FILE__) . '/locallib.php');
 if ($hassiteconfig) {
 
     // Link to a 'testing' page.
-    $ADMIN->add('development', new admin_externalpage('local_initialsprofilepics_testing',
-        get_string('pluginname:testing', 'local_initialsprofilepics'),
-        new moodle_url('/local/initialsprofilepics/testing.php')));
+    $ADMIN->add('development', new admin_externalpage('local_ciabinitialsprofilepics_testing',
+        get_string('pluginname:testing', 'local_ciabinitialsprofilepics'),
+        new moodle_url('/local/ciabinitialsprofilepics/testing.php')));
 
     // Create settings page.
-    $settings = new admin_settingpage('local_initialsprofilepics', get_string('pluginname', 'local_initialsprofilepics'));
+    $settings = new admin_settingpage('local_ciabinitialsprofilepics', get_string('pluginname', 'local_ciabinitialsprofilepics'));
     $ADMIN->add('localplugins', $settings);
 
     $settings->add(new admin_setting_heading(
-        'local_initialsprofilepics/settings',
-        get_string('settings', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/settings',
+        get_string('settings', 'local_ciabinitialsprofilepics'),
         ''
     ));
 
     // Check for the GD image library.
     $settings->add(new admin_setting_php_extension_enabled(
-        'local_initialsprofilepics/gdenabled',
-        get_string('gdenabled', 'local_initialsprofilepics'),
-        get_string('gdenabled_help', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/gdenabled',
+        get_string('gdenabled', 'local_ciabinitialsprofilepics'),
+        get_string('gdenabled_help', 'local_ciabinitialsprofilepics'),
         'gd'
     ));
 
     // Enable or disable the plugin.
     $settings->add(new admin_setting_configcheckbox(
-        'local_initialsprofilepics/enabled',
-        get_string('enabled', 'local_initialsprofilepics'),
-        get_string('enabled_help', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/enabled',
+        get_string('enabled', 'local_ciabinitialsprofilepics'),
+        get_string('enabled_help', 'local_ciabinitialsprofilepics'),
         1
     ));
 
     // Choose a random colour for each user rather than one based on their first initial.
     $settings->add(new admin_setting_configcheckbox(
-        'local_initialsprofilepics/randomcolour',
-        get_string('randomcolour', 'local_initialsprofilepics'),
-        get_string('randomcolour_help', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/randomcolour',
+        get_string('randomcolour', 'local_ciabinitialsprofilepics'),
+        get_string('randomcolour_help', 'local_ciabinitialsprofilepics'),
         0
     ));
 
     // Specify a colour to force.
     $settings->add(new admin_setting_configcolourpicker(
-        'local_initialsprofilepics/forcecolour',
-        get_string('forcecolour', 'local_initialsprofilepics'),
-        get_string('forcecolour_help', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/forcecolour',
+        get_string('forcecolour', 'local_ciabinitialsprofilepics'),
+        get_string('forcecolour_help', 'local_ciabinitialsprofilepics'),
         '',
         null
     ));
 
     // Shape.
     $shapes = [];
-    foreach (INITIALSPROFILEPICS_SHAPES as $shape) {
-        $shapes[$shape] = get_string("shape:{$shape}", 'local_initialsprofilepics');
+    foreach (CIABINITIALSPROFILEPICS_SHAPES as $shape) {
+        $shapes[$shape] = get_string("shape:{$shape}", 'local_ciabinitialsprofilepics');
     }
     $settings->add(new admin_setting_configselect(
-        'local_initialsprofilepics/shape',
-        get_string('shape', 'local_initialsprofilepics'),
-        get_string('shape_help', 'local_initialsprofilepics'),
-        INITIALSPROFILEPICS_SHAPES_SQUARE,
+        'local_ciabinitialsprofilepics/shape',
+        get_string('shape', 'local_ciabinitialsprofilepics'),
+        get_string('shape_help', 'local_ciabinitialsprofilepics'),
+        CIABINITIALSPROFILEPICS_SHAPES_SQUARE,
         $shapes
     ));
 
     // Font size.
     $settings->add(new admin_setting_configselect(
-        'local_initialsprofilepics/fontsize',
-        get_string('fontsize', 'local_initialsprofilepics'),
-        get_string('fontsize_help', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/fontsize',
+        get_string('fontsize', 'local_ciabinitialsprofilepics'),
+        get_string('fontsize_help', 'local_ciabinitialsprofilepics'),
         '1.4',
-        INITIALSPROFILEPICS_FONTSIZE
+        CIABINITIALSPROFILEPICS_FONTSIZE
     ));
 
     // Font alpha-transparency.
     $settings->add(new admin_setting_configselect(
-        'local_initialsprofilepics/fontalpha',
-        get_string('fontalpha', 'local_initialsprofilepics'),
-        get_string('fontalpha_help', 'local_initialsprofilepics'),
+        'local_ciabinitialsprofilepics/fontalpha',
+        get_string('fontalpha', 'local_ciabinitialsprofilepics'),
+        get_string('fontalpha_help', 'local_ciabinitialsprofilepics'),
         '0.2',
-        INITIALSPROFILEPICS_FONTALPHA
+        CIABINITIALSPROFILEPICS_FONTALPHA
     ));
 
-    $testinglink = (object) ['link' => $CFG->wwwroot . '/local/initialsprofilepics/testing.php'];
+    $testinglink = (object) ['link' => $CFG->wwwroot . '/local/ciabinitialsprofilepics/testing.php'];
     $settings->add(new admin_setting_heading(
-        'local_initialsprofilepics/testing',
-        get_string('testing', 'local_initialsprofilepics'),
-        get_string('testing_help', 'local_initialsprofilepics', $testinglink)
+        'local_ciabinitialsprofilepics/testing',
+        get_string('testing', 'local_ciabinitialsprofilepics'),
+        get_string('testing_help', 'local_ciabinitialsprofilepics', $testinglink)
     ));
 
 }

@@ -17,81 +17,83 @@
 /**
  * Local libraries.
  *
- * @package     local_initialsprofilepics
- * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
+ * @package     local_ciabinitialsprofilepics
+ * @copyright   2017 Coach in a Box <paul.vaughan@coachinabox.biz>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/local/initialsprofilepics/vendor/autoload.php');
+require_once($CFG->dirroot . '/local/ciabinitialsprofilepics/vendor/autoload.php');
 use Intervention\Image\ImageManager;
 
 // O or 1. TODO: config option. Probably.
-define('INITIALSPROFILEPICS_BG_ALPHA', 0);
+define('CIABINITIALSPROFILEPICS_BG_ALPHA', 0);
 
 // This can be 'gd' or 'imagick', but Moodle already requires gd, so use that.
-define('INITIALSPROFILEPICS_DRIVER', 'gd');
+define('CIABINITIALSPROFILEPICS_DRIVER', 'gd');
 
 // Default size.
-define('INITIALSPROFILEPICS_SIZE', 200);
+define('CIABINITIALSPROFILEPICS_SIZE', 200);
 
 // Shapes options.
-define('INITIALSPROFILEPICS_SHAPES_CIRCLE', 'circle');
-define('INITIALSPROFILEPICS_SHAPES_SQUARE', 'square');
-define('INITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE', 'rounded_square');
-define('INITIALSPROFILEPICS_SHAPES_UPSLASH', 'upslash');
-define('INITIALSPROFILEPICS_SHAPES_DOWNSLASH', 'downslash');
-define('INITIALSPROFILEPICS_SHAPES_LEFTSLASH', 'leftslash');
-define('INITIALSPROFILEPICS_SHAPES_RIGHTSLASH', 'rightslash');
-define('INITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL', 'hexagon_horizontal');
-define('INITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL', 'hexagon_vertical');
-define('INITIALSPROFILEPICS_SHAPES_STAR', 'star');
-define('INITIALSPROFILEPICS_SHAPES', [
-    INITIALSPROFILEPICS_SHAPES_CIRCLE,
-    INITIALSPROFILEPICS_SHAPES_SQUARE,
-    INITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE,
-    INITIALSPROFILEPICS_SHAPES_UPSLASH,
-    INITIALSPROFILEPICS_SHAPES_DOWNSLASH,
-    INITIALSPROFILEPICS_SHAPES_LEFTSLASH,
-    INITIALSPROFILEPICS_SHAPES_RIGHTSLASH,
-    INITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL,
-    INITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL,
-    INITIALSPROFILEPICS_SHAPES_STAR,
+define('CIABINITIALSPROFILEPICS_SHAPES_CIRCLE', 'circle');
+define('CIABINITIALSPROFILEPICS_SHAPES_SQUARE', 'square');
+define('CIABINITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE', 'rounded_square');
+define('CIABINITIALSPROFILEPICS_SHAPES_UPSLASH', 'upslash');
+define('CIABINITIALSPROFILEPICS_SHAPES_DOWNSLASH', 'downslash');
+define('CIABINITIALSPROFILEPICS_SHAPES_LEFTSLASH', 'leftslash');
+define('CIABINITIALSPROFILEPICS_SHAPES_RIGHTSLASH', 'rightslash');
+define('CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL', 'hexagon_horizontal');
+define('CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL', 'hexagon_vertical');
+define('CIABINITIALSPROFILEPICS_SHAPES_CIAB', 'ciab');
+define('CIABINITIALSPROFILEPICS_SHAPES_STAR', 'star');
+define('CIABINITIALSPROFILEPICS_SHAPES', [
+    CIABINITIALSPROFILEPICS_SHAPES_CIRCLE,
+    CIABINITIALSPROFILEPICS_SHAPES_SQUARE,
+    CIABINITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE,
+    CIABINITIALSPROFILEPICS_SHAPES_UPSLASH,
+    CIABINITIALSPROFILEPICS_SHAPES_DOWNSLASH,
+    CIABINITIALSPROFILEPICS_SHAPES_LEFTSLASH,
+    CIABINITIALSPROFILEPICS_SHAPES_RIGHTSLASH,
+    CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL,
+    CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL,
+    CIABINITIALSPROFILEPICS_SHAPES_CIAB,
+    CIABINITIALSPROFILEPICS_SHAPES_STAR,
 ]);
 
 // If it's not a circle, it's square, or a rounded square.
-define('INITIALSPROFILEPICS_SHAPE', INITIALSPROFILEPICS_SHAPES_SQUARE);
+define('CIABINITIALSPROFILEPICS_SHAPE', CIABINITIALSPROFILEPICS_SHAPES_SQUARE);
 
 // Font to use.
-define('INITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
-// define('INITIALSPROFILEPICS_FONT', 'calibri.ttf');
+define('CIABINITIALSPROFILEPICS_FONT', 'opensans-regular.ttf');
+// define('CIABINITIALSPROFILEPICS_FONT', 'calibri.ttf');
 
 // Colours.
-define('INITIALSPROFILEPICS_COLOURS', [
+define('CIABINITIALSPROFILEPICS_COLOURS', [
     // Default generic colours.
     "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50",
     "#f1c40f", "#e67e22", "#e74c3c", "#dce0e1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d",
 ]);
 
 // Colours used to darken and lighten other colours by layering on top.
-define('INITIALSPROFILEPICS_COLOUR_DARKEN', [0, 0, 0, .3]);
-define('INITIALSPROFILEPICS_COLOUR_LIGHTEN', [255, 255, 255, .2]);
+define('CIABINITIALSPROFILEPICS_COLOUR_DARKEN', [0, 0, 0, .3]);
+define('CIABINITIALSPROFILEPICS_COLOUR_LIGHTEN', [255, 255, 255, .2]);
 
 // Pool of letters (and numbers, symbols as appropriate) for testing and if no initials supplied.
-// define('INITIALSPROFILEPICS_INITIALSPOOL', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!?#@');
-define('INITIALSPROFILEPICS_INITIALSPOOL', 'ABCDE12345!?#@¥£€$¢₡₢₣₤₥₦₧₨₩₪₫₭₮₯₹·');
+// define('CIABINITIALSPROFILEPICS_INITIALSPOOL', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!?#@');
+define('CIABINITIALSPROFILEPICS_INITIALSPOOL', 'ABCDE12345!?#@¥£€$¢₡₢₣₤₥₦₧₨₩₪₫₭₮₯₹·');
 
 // Font sizes.
-define('INITIALSPROFILEPICS_FONTSIZE', [
-    '1.4'   => get_string('extralarge', 'local_initialsprofilepics'),
-    '1.2'   => get_string('large', 'local_initialsprofilepics'),
-    '1.0'   => get_string('medium', 'local_initialsprofilepics'),
-    '0.8'   => get_string('small', 'local_initialsprofilepics'),
+define('CIABINITIALSPROFILEPICS_FONTSIZE', [
+    '1.4'   => get_string('extralarge', 'local_ciabinitialsprofilepics'),
+    '1.2'   => get_string('large', 'local_ciabinitialsprofilepics'),
+    '1.0'   => get_string('medium', 'local_ciabinitialsprofilepics'),
+    '0.8'   => get_string('small', 'local_ciabinitialsprofilepics'),
 ]);
 
 // Font alpha-transparency.
-define('INITIALSPROFILEPICS_FONTALPHA', [
+define('CIABINITIALSPROFILEPICS_FONTALPHA', [
     '0.2'   => '20%',
     '0.3'   => '30%',
     '0.4'   => '40%',
@@ -106,11 +108,11 @@ define('INITIALSPROFILEPICS_FONTALPHA', [
  * @param core\event\user_created or core\event\user_updated event
  * @return bool
  */
-function initialsprofilepics_profile_picture_exists($event) : bool {
+function ciabinitialsprofilepics_profile_picture_exists($event) : bool {
     global $CFG, $DB;
 
     // If not enabled, bail.
-    if (get_config('local_initialsprofilepics', 'enabled') == '0') {
+    if (get_config('local_ciabinitialsprofilepics', 'enabled') == '0') {
         return true;
     }
 
@@ -118,7 +120,7 @@ function initialsprofilepics_profile_picture_exists($event) : bool {
 
     $user = $DB->get_record('user', ['id' => $event->relateduserid]);
     if ($user->picture == 0) {
-        return initialsprofilepics_create_and_save_to_profile($user);
+        return ciabinitialsprofilepics_create_and_save_to_profile($user);
     }
     return true;
 }
@@ -128,7 +130,7 @@ function initialsprofilepics_profile_picture_exists($event) : bool {
  * @param object user   Moodle user object.
  * @return bool
  */
-function initialsprofilepics_create_and_save_to_profile($user) : bool {
+function ciabinitialsprofilepics_create_and_save_to_profile($user) : bool {
 
     global $CFG, $DB, $usernew;
 
@@ -136,18 +138,18 @@ function initialsprofilepics_create_and_save_to_profile($user) : bool {
         return false;
     }
 
-    $initials   = initialsprofilepics_get_initials_from_user($user);
+    $initials   = ciabinitialsprofilepics_get_initials_from_user($user);
     // TODO: config option.
-    $shape      = get_config('local_initialsprofilepics', 'shape');
-    $colour     = initialsprofilepics_get_working_colour($initials);
+    $shape      = get_config('local_ciabinitialsprofilepics', 'shape');
+    $colour     = ciabinitialsprofilepics_get_working_colour($initials);
     $size       = 500;
-    $fontsize   = get_config('local_initialsprofilepics', 'fontsize');
-    $fontalpha  = get_config('local_initialsprofilepics', 'fontalpha');
+    $fontsize   = get_config('local_ciabinitialsprofilepics', 'fontsize');
+    $fontalpha  = get_config('local_ciabinitialsprofilepics', 'fontalpha');
 
     // Initials, shape, colour, size, fontsize, fontalpha.
-    $canvas = initialsprofilepics_generate_profile_pic($initials, $shape, $colour, $size, $fontsize, $fontalpha);
+    $canvas = ciabinitialsprofilepics_generate_profile_pic($initials, $shape, $colour, $size, $fontsize, $fontalpha);
 
-    $tempfile = initialsprofilepics_save_to_disk($canvas, $user);
+    $tempfile = ciabinitialsprofilepics_save_to_disk($canvas, $user);
 
     $newpicture = (int) process_new_icon(context_user::instance($user->id, MUST_EXIST), 'user', 'icon', 0, $tempfile);
     $DB->set_field('user', 'picture', $newpicture, ['id' => $user->id]);
@@ -163,7 +165,7 @@ function initialsprofilepics_create_and_save_to_profile($user) : bool {
  * @param object user           User object.
  * @return path to temporary file and folder.
  */
-function initialsprofilepics_save_to_disk($canvas, $user) {
+function ciabinitialsprofilepics_save_to_disk($canvas, $user) {
     $tempfile = make_request_directory() . $user->id . '.png';
     $canvas->save($tempfile);
     return $tempfile;
@@ -179,7 +181,7 @@ function initialsprofilepics_save_to_disk($canvas, $user) {
  * @param float fontalpha       Alpha-transparency.
  * @return string               'data-url' encoded image.
  */
-function initialsprofilepics_create_and_dump_onscreen(
+function ciabinitialsprofilepics_create_and_dump_onscreen(
     array $initials = null,
     string $shape = null,
     string $colour = null,
@@ -187,7 +189,7 @@ function initialsprofilepics_create_and_dump_onscreen(
     float $fontsize = null,
     float $fontalpha = null
 ) : string {
-    $canvas = initialsprofilepics_generate_profile_pic($initials, $shape, $colour, $size, $fontsize, $fontalpha);
+    $canvas = ciabinitialsprofilepics_generate_profile_pic($initials, $shape, $colour, $size, $fontsize, $fontalpha);
     return (string) $canvas->encode('data-url');
 }
 
@@ -197,7 +199,7 @@ function initialsprofilepics_create_and_dump_onscreen(
  * @return array            Initials.
  * TODO: potentially limit this to two initials only.
  */
-function initialsprofilepics_get_initials_from_user($user) : array {
+function ciabinitialsprofilepics_get_initials_from_user($user) : array {
     $names = explode(' ', fullname($user));
 
     $initials = [];
@@ -218,7 +220,7 @@ function initialsprofilepics_get_initials_from_user($user) : array {
  * @param float fontalpha       Alpha-transparency.
  * @return Intervention image object
  */
-function initialsprofilepics_generate_profile_pic(
+function ciabinitialsprofilepics_generate_profile_pic(
     array $initials = null,
     string $shape = null,
     string $colour = null,
@@ -228,28 +230,28 @@ function initialsprofilepics_generate_profile_pic(
 ) {
 
     // Should have all decent params passed in, so do brief sanity checks only.
-    $initials   = $initials     ?? initialsprofilepics_get_random_initials();
-    $shape      = $shape        ?? INITIALSPROFILEPICS_SHAPE;
-    $colour     = $colour       ?? initialsprofilepics_get_random_colour();
-    $size       = $size         ?? INITIALSPROFILEPICS_SIZE;
+    $initials   = $initials     ?? ciabinitialsprofilepics_get_random_initials();
+    $shape      = $shape        ?? CIABINITIALSPROFILEPICS_SHAPE;
+    $colour     = $colour       ?? ciabinitialsprofilepics_get_random_colour();
+    $size       = $size         ?? CIABINITIALSPROFILEPICS_SIZE;
     $fontsize   = $fontsize     ?? 1.4;
     $fontalpha  = $fontalpha    ?? 0.2;
 
     global $CFG;
 
-    $image = new ImageManager(['driver' => INITIALSPROFILEPICS_DRIVER]);
+    $image = new ImageManager(['driver' => CIABINITIALSPROFILEPICS_DRIVER]);
 
     $hsize = (int) ($size / 2);
-    if ($shape == INITIALSPROFILEPICS_SHAPES_CIRCLE) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    if ($shape == CIABINITIALSPROFILEPICS_SHAPES_CIRCLE) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->circle($size - 1, $size / 2, $size / 2, function ($draw) use ($colour) {
             $draw->background($colour);
             // TODO: Borders? Looks bad. :(
             // $draw->border(5, '#0000ff');
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_ROUNDEDSQUARE) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->circle($hsize, $hsize / 2, $hsize / 2, function ($draw) use ($colour) {
             $draw->background($colour);
         });
@@ -277,36 +279,36 @@ function initialsprofilepics_generate_profile_pic(
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_SQUARE) {
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_SQUARE) {
         $canvas = $image->canvas($size, $size, $colour);
         // If we want a border here, I think we'll need to make the canvas transparent and draw a square.
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_UPSLASH) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_UPSLASH) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->polygon([0, $hsize, $size, 0, $size, $hsize, 0, $size], function ($draw) use ($colour) {
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_DOWNSLASH) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_DOWNSLASH) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->polygon([0, 0, $size, $hsize, $size, $size, 0, $hsize], function ($draw) use ($colour) {
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_LEFTSLASH) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_LEFTSLASH) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->polygon([0, 0, $hsize, 0, $size, $size, $hsize, $size], function ($draw) use ($colour) {
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_RIGHTSLASH) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_RIGHTSLASH) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
         $canvas->polygon([$hsize, 0, $size, 0, $hsize, $size, 0, $size], function ($draw) use ($colour) {
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_HORIZONTAL) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
 
         // http://stackoverflow.com/questions/7198144/how-to-draw-a-n-sided-regular-polygon-in-cartesian-coordinates
         $theta  = 0; // Hexagon with flat sides at the top and bottom.
@@ -327,8 +329,8 @@ function initialsprofilepics_generate_profile_pic(
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_HEXAGON_VERTICAL) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
 
         $theta  = pi() / 2; // Hexagon with flat sides at the sides.
         $points = 6;
@@ -348,8 +350,86 @@ function initialsprofilepics_generate_profile_pic(
             $draw->background($colour);
         });
 
-    } else if ($shape == INITIALSPROFILEPICS_SHAPES_STAR) {
-        $canvas = $image->canvas($size, $size, [255, 255, 255, INITIALSPROFILEPICS_BG_ALPHA]);
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_CIAB) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
+
+        $theta      = pi() / 2;
+        $points1    = $points2 = $points3 = [];
+        $numpoints  = 6;
+
+        // Generates points for the outer (largest), middle, and inner (smallest) hexagon.
+        for ($j = 0; $j <= $numpoints - 1; $j++) {
+            $points1[] = (int) ($hsize * cos(2 * pi() * $j / $numpoints + $theta) + $hsize);
+            $points1[] = (int) ($hsize * sin(2 * pi() * $j / $numpoints + $theta) + $hsize);
+            $points2[] = (int) (($hsize / 2) * cos(2 * pi() * $j / $numpoints + $theta) + $hsize);
+            $points2[] = (int) (($hsize / 2) * sin(2 * pi() * $j / $numpoints + $theta) + $hsize);
+            $points3[] = (int) (($hsize / 3) * cos(2 * pi() * $j / $numpoints + $theta) + $hsize);
+            $points3[] = (int) (($hsize / 3) * sin(2 * pi() * $j / $numpoints + $theta) + $hsize);
+        }
+
+        // Shadow bit (make a line, blur it).
+        // https://github.com/Intervention/image/issues/240
+        // $height = 5;
+        // $canvas->polygon([
+        //     $points1[10], $points1[11], $points1[0], $points1[1], $points1[2], $points1[3],
+        //      $points1[2], $points1[3] - $height, $points1[0], $points1[1] - $height, $points1[10], $points1[11] - $height
+        // ], function ($draw) use ($colour) {
+        //     $draw->background('#000');
+        // });
+        // $canvas->blur(50);
+
+        $canvas->polygon([
+            $points1[0], $points1[1], $points1[2], $points1[3], $points1[4], $points1[5],
+            $points2[4], $points2[5], $points2[2], $points2[3], $points2[0], $points2[1]
+        ], function ($draw) use ($colour) {
+            $draw->background($colour);
+        });
+        $canvas->polygon([
+            $points1[4], $points1[5], $points1[6], $points1[7], $points1[8], $points1[9],
+            $points2[8], $points2[9], $points2[6], $points2[7], $points2[4], $points2[5]
+        ], function ($draw) use ($colour) {
+            $draw->background($colour);
+        });
+        $canvas->polygon([
+            $points1[8], $hsize, $points1[10], $points1[11], $points1[0], $points1[1],
+            $points2[0], $points2[1]
+        ], function ($draw) use ($colour) {
+            $draw->background($colour);
+        });
+
+        // Draw the small hexagon.
+        $canvas->polygon($points3, function ($draw) use ($colour) {
+            $draw->background($colour);
+        });
+
+        // Adding the alpha-level stuff.
+        $canvas->polygon([
+            $points1[0], $points1[1], $points1[2], $points1[3], $points1[4], $points1[5],
+            $points2[4], $points2[5], $points2[2], $points2[3], $points2[0], $points2[1]
+        ], function ($draw) {
+            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_DARKEN);
+        });
+        $canvas->polygon([
+            $points1[4], $points1[5], $points1[6], $points1[7], $points1[8], $points1[9],
+            $points2[8], $points2[9], $points2[6], $points2[7], $points2[4], $points2[5]
+        ], function ($draw) {
+            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_LIGHTEN);
+        });
+        $canvas->polygon([
+            $points3[0], $points3[1], $points3[2], $points3[3], $points3[4], $points3[5],
+            $hsize, $hsize
+        ], function ($draw) {
+            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_DARKEN);
+        });
+        $canvas->polygon([
+            $points3[4], $points3[5], $points3[6], $points3[7], $points3[8], $points3[9],
+            $hsize, $hsize
+        ], function ($draw) {
+            $draw->background(CIABINITIALSPROFILEPICS_COLOUR_LIGHTEN);
+        });
+
+    } else if ($shape == CIABINITIALSPROFILEPICS_SHAPES_STAR) {
+        $canvas = $image->canvas($size, $size, [255, 255, 255, CIABINITIALSPROFILEPICS_BG_ALPHA]);
 
         // TODO: how to make the star point 'up' properly.
         $theta      = 2.2;
@@ -380,7 +460,7 @@ function initialsprofilepics_generate_profile_pic(
             break;
         }
         $canvas->text($initials[$j], ($size * .35) * ($j + 1), ($size * .5), function ($font) use ($size, $fontsize, $fontalpha) {
-            $font->file(__DIR__ . '/fonts/' . INITIALSPROFILEPICS_FONT);
+            $font->file(__DIR__ . '/fonts/' . CIABINITIALSPROFILEPICS_FONT);
             $font->size($size * $fontsize);
             $font->color([255, 255, 255, $fontalpha]);
             $font->valign('middle');
@@ -400,20 +480,20 @@ function initialsprofilepics_generate_profile_pic(
 /**
  * Gets a random colour from the pool of colours.
  */
-function initialsprofilepics_get_random_colour() {
-    return INITIALSPROFILEPICS_COLOURS[rand(0, count(INITIALSPROFILEPICS_COLOURS) - 1)];
+function ciabinitialsprofilepics_get_random_colour() {
+    return CIABINITIALSPROFILEPICS_COLOURS[rand(0, count(CIABINITIALSPROFILEPICS_COLOURS) - 1)];
 }
 
 /**
  * Gets random initials.
  * @param int number            The number of initials required; defaults to 2.
  */
-function initialsprofilepics_get_random_initials(int $number = null) {
+function ciabinitialsprofilepics_get_random_initials(int $number = null) {
     $number = $number ?? 2;
-    $len    = strlen(INITIALSPROFILEPICS_INITIALSPOOL) - 1;
+    $len    = strlen(CIABINITIALSPROFILEPICS_INITIALSPOOL) - 1;
     $out    = [];
     for ($j = 1; $j <= $number; $j++) {
-        $out[] = substr(INITIALSPROFILEPICS_INITIALSPOOL, rand(0, $len), 1);
+        $out[] = substr(CIABINITIALSPROFILEPICS_INITIALSPOOL, rand(0, $len), 1);
     }
     return $out;
 }
@@ -422,20 +502,20 @@ function initialsprofilepics_get_random_initials(int $number = null) {
  * Gets the working colour choice, depending on settings.
  * @param array initials         User's initials.
  */
-function initialsprofilepics_get_working_colour(array $initials = null) {
+function ciabinitialsprofilepics_get_working_colour(array $initials = null) {
     $initials = $initials ?? ['A', 'Z'];
 
     // Forced to a specific colour.
-    if ($forcecolour = get_config('local_initialsprofilepics', 'forcecolour')) {
+    if ($forcecolour = get_config('local_ciabinitialsprofilepics', 'forcecolour')) {
         $colour = $forcecolour;
 
-    } else if (get_config('local_initialsprofilepics', 'randomcolour')) {
+    } else if (get_config('local_ciabinitialsprofilepics', 'randomcolour')) {
         // Random choice.
-        $colour = initialsprofilepics_get_random_colour();
+        $colour = ciabinitialsprofilepics_get_random_colour();
 
     } else {
         // One based on the first letter of your names.
-        $colour = initialsprofilepics_get_colour_from_initials($initials);
+        $colour = ciabinitialsprofilepics_get_colour_from_initials($initials);
     }
 
     return $colour;
@@ -445,18 +525,18 @@ function initialsprofilepics_get_working_colour(array $initials = null) {
  * Gets the colour based on the user's initials.
  * @param array initials        User's initials.
  */
-function initialsprofilepics_get_colour_from_initials(array $initials = null) {
+function ciabinitialsprofilepics_get_colour_from_initials(array $initials = null) {
     $initials = $initials ?? ['A', 'Z'];
     $colour = false;
 
     $charindex      = ord($initials[0]);
-    $colourindex    = $charindex % count(INITIALSPROFILEPICS_COLOURS);
+    $colourindex    = $charindex % count(CIABINITIALSPROFILEPICS_COLOURS);
     if ($colourindex >= 0) {
-        $colour         = INITIALSPROFILEPICS_COLOURS[$colourindex];
+        $colour         = CIABINITIALSPROFILEPICS_COLOURS[$colourindex];
     }
     // If no colour selected for some reason, pick a random one.
     if (!$colour) {
-        $colour     = initialsprofilepics_get_random_colour();
+        $colour     = ciabinitialsprofilepics_get_random_colour();
     }
 
     return $colour;
