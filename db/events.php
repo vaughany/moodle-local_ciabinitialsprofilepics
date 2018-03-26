@@ -17,9 +17,9 @@
 /**
  * Add event handlers for profile picture local plugin.
  *
- * @package    local_ciabinitialsprofilepics
- * @copyright  2017 Coach in a Box <paul.vaughan@coachinabox.biz>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_initialsprofilepics
+ * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -27,15 +27,15 @@ defined('MOODLE_INTERNAL') || die();
 $observers = [
     [
         'eventname'     => '\core\event\user_created',
-        'callback'      => 'ciabinitialsprofilepics_profile_picture_exists',
-        'includefile'   => '/local/ciabinitialsprofilepics/locallib.php',
+        'callback'      => 'initialsprofilepics_profile_picture_exists',
+        'includefile'   => '/local/initialsprofilepics/locallib.php',
         'internal'      => false,
         'priority'      => 0,
     ],
     [
         'eventname'     => '\core\event\user_updated',
-        'callback'      => 'ciabinitialsprofilepics_profile_picture_exists',
-        'includefile'   => '/local/ciabinitialsprofilepics/locallib.php',
+        'callback'      => 'initialsprofilepics_profile_picture_exists',
+        'includefile'   => '/local/initialsprofilepics/locallib.php',
         'internal'      => false,
         'priority'      => 0,
     ],

@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English strings for local_ciabinitialsprofilepics.
+ * English strings for local_initialsprofilepics.
  *
- * @package    local_ciabinitialsprofilepics
- * @copyright  2017 Coach in a Box <paul.vaughan@coachinabox.biz>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local_initialsprofilepics
+ * @copyright   2018 Paul Vaughan <paulieboo@gmail.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'CiaB Initials Profile Pics';
-$string['pluginname:testing'] = 'CiaB Initials Profile Pics - Testing';
+$string['pluginname'] = 'Initials Profile Pics';
+$string['pluginname:testing'] = 'Initials Profile Pics - Testing';
 
 $string['settings'] = 'Settings';
 
@@ -65,5 +65,4 @@ $string['shape:leftslash']            = 'Left Slash';
 $string['shape:rightslash']           = 'Right Slash';
 $string['shape:hexagon_horizontal']   = 'Horizontal Hexagon';
 $string['shape:hexagon_vertical']     = 'Vertical Hexagon';
-$string['shape:ciab']                 = 'CiaB Logo';
 $string['shape:star']                 = 'Star';

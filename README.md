@@ -1,19 +1,19 @@
 # Initials Profile Pictures generator
 
-![Example #1](./examples/ciabinitialsprofilepics_example.png)
+![Example #1](./examples/initialsprofilepics_example.png)
 
-![Example #2](./examples/ciabinitialsprofilepics_example2.png)
+![Example #2](./examples/initialsprofilepics_example2.png)
 
 A local plugin for Moodle which automatically creates profile pictures for users based on their initials.
 
-Written by Paul Vaughan (<paul.vaughan@coachinabox.biz>, [@MoodleVaughany](http://twitter.com/moodlevaughany)), &copy; 2017 [Coach in a Box](http://www.coachinabox.biz/).
+Written by Paul Vaughan (<paulieboo@gmail.com>, [@MoodleVaughany](http://twitter.com/moodlevaughany)), &copy; 2018.
 
 
 ## Introduction
 
 For our Moodle installation, we wanted unique profile pictures for each user instead of the generic default 'silhouette' image, without the requirement of each user uploading their own. This plugin automatically and silently creates a profile picture for each user from their initials when their profile is created or saved. A few classes were found which did roughly what we wanted, and they were used as inspiration for this plugin, as was the way the Android Contacts app displays people without images.
 
-This plugin uses the [Intervention Image library for PHP](http://image.intervention.io/) and was inspired by [this wrapper](https://github.com/yohang88/letter-avatar_) for it.
+This plugin uses the [Intervention Image library for PHP](http://image.intervention.io/) and was inspired by [this wrapper](https://github.com/yohang88/letter-avatar) for it.
 
 
 ## Installation
@@ -26,12 +26,12 @@ This plugin has so far only been tested with Moodle 3.2, but will probably work 
 
 * PHP's GD image library.
 
-This plugin uses the [Intervention Image library for PHP](http://image.intervention.io/) (it and it's dependencies are included with the plugin; there is no need to use Composer) and was inspired by [this wrapper](https://github.com/yohang88/letter-avatar_) for it, with a tip of the hat to the way default contact images are displayed in the Android Contacts app.
+This plugin uses the [Intervention Image library for PHP](http://image.intervention.io/) (it and it's dependencies are included with the plugin; there is no need to use Composer) and was inspired by [this wrapper](https://github.com/yohang88/letter-avatar) for it, with a tip of the hat to the way default contact images are displayed in the Android Contacts app.
 
 
 ### Installing
 
-Install as you would any local Moodle plugin, by copying or cloning the `ciabinitialsprofilepics` folder into your Moodle's `local/` folder. If you use `git clone`, please ensure the folder name is exactly as stated as it will not install or work otherwise.
+Install as you would any local Moodle plugin, by copying or cloning the `initialsprofilepics` folder into your Moodle's `local/` folder. If you use `git clone`, please ensure the folder name is exactly as stated as it will not install or work otherwise.
 
 Log in to your Moodle as an administrator and head to the Notifications page, where all being well, Moodle will discover the new plugin and install it.
 
@@ -68,14 +68,16 @@ As new users are created, they will automatically get a profile picture created 
 
 **Force Colour:** Pick a colour or type in a valid CSS hexadecimal colour code to force all images to use this colour.
 
+**Image Shape:** Choose the shape of the generated image.  There's quite a few to choose from.  Note that some Moodle themes may round the corners of images or make them appear circular (or other CSS trickery), despite the generated image not being that shape.
+
 **Font Size:** Choose to have a big font which almost extends beyond the limit of the image, or a small font which is all clearly visible. Defaults to extra large (quite abstract).
 
 **Font Alpha:** Choose the level of transparency, from 20% visible to 80% visible. (Defaults to just 20%.)
 
-**Note:** Some parts of the plugin without configuration settings can still be changed if you are happy to hack the `locallib.php` file.  Most common settings are constants at the beginning of the file and have names like `CIABINITIALSPROFILEPICS_BG_ALPHA`.
-
+Note that some parts of the plugin without configuration settings can still be changed if you are happy to hack the `locallib.php` file.  Most common settings are constants at the beginning of the file and have names like `INITIALSPROFILEPICS_BG_ALPHA`.
 
 ## To Do
+
 
 Ideas I have had for future developments. If you want a feature added, raise an issue or send a pull request. :)
 
@@ -106,6 +108,7 @@ I've noticed that the images this plugin generates are around 18-20kb, give or t
 * 2017-04-07:     v1.0.6      Shape selection option and more shapes.
 * 2017-05-10:     v1.0.7      Fixes for some of the issues raised by moodle.org's plugin validation process.
 * 2017-06-06:     v1.0.8      More fixes for some of the issues raised by moodle.org's plugin validation process, better testing, some minor bugs fixed.
+* 2018-03-26:     v1.1        Purged all references to CiaB.
 
 
 ## Licence
