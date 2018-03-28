@@ -117,7 +117,7 @@ foreach (CIABINITIALSPROFILEPICS_FONTSIZE as $fontsize => $name) {
 }
 
 echo html_writer::empty_tag('hr');
-echo $OUTPUT->heading(get_string('testing:oneeachfontalpha', 'local_ciabinitialsprofilepics', count(CIABINITIALSPROFILEPICS_FONTSIZE)), 4);
+echo $OUTPUT->heading(get_string('testing:oneeachfontalpha', 'local_ciabinitialsprofilepics', count(CIABINITIALSPROFILEPICS_FONTALPHA)), 4);
 $colour = CIABINITIALSPROFILEPICS_COLOURS[4];
 foreach (CIABINITIALSPROFILEPICS_FONTALPHA as $fontalpha => $name) {
     echo html_writer::empty_tag('img', ['src' => ciabinitialsprofilepics_create_and_dump_onscreen(['A', 'B'],
