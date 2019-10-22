@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component      = 'local_ciabinitialsprofilepics';
-$plugin->version        = 2018032600;
-$plugin->release        = 'Version 1.1.1';
+$plugin->version        = 2019102200;
+$plugin->release        = 'Version 1.1.2';
 $plugin->requires       = 2016120500; // 3.2.
 $plugin->maturity       = MATURITY_BETA;
 $plugin->cron           = 0;

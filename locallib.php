@@ -130,10 +130,6 @@ function ciabinitialsprofilepics_create_and_save_to_profile($user) : bool {
 
     global $CFG, $DB, $usernew;
 
-    if (!isset($usernew)) {
-        return false;
-    }
-
     $initials   = ciabinitialsprofilepics_get_initials_from_user($user);
     // TODO: config option.
     $shape      = get_config('local_ciabinitialsprofilepics', 'shape');
@@ -150,7 +146,7 @@ function ciabinitialsprofilepics_create_and_save_to_profile($user) : bool {
     $newpicture = (int) process_new_icon(context_user::instance($user->id, MUST_EXIST), 'user', 'icon', 0, $tempfile);
     $DB->set_field('user', 'picture', $newpicture, ['id' => $user->id]);
 
-    $usernew->picture = $newpicture;
+    $user->picture = $newpicture;
 
     return true;
 }

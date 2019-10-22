@@ -6,7 +6,7 @@
 
 A local plugin for Moodle which automatically creates profile pictures for users based on their initials.
 
-Written by Paul Vaughan (<paulieboo@gmail.com>, [@MoodleVaughany](http://twitter.com/moodlevaughany)), &copy; 2018.
+Written by Paul Vaughan (<paulieboo@gmail.com>, [@MoodleVaughany](http://twitter.com/moodlevaughany)), &copy; 2017, 2018, 2019.
 
 
 ## Introduction
@@ -111,6 +111,7 @@ I've noticed that the images this plugin generates are around 18-20kb, give or t
 * 2017-06-06:     v1.0.8      More fixes for some of the issues raised by moodle.org's plugin validation process, better testing, some minor bugs fixed.-*
 * 2018-03-26:     v1.1        Purged all references to CiaB.
 * 2018-03-26:     v1.1.1      Reverted most of the previous changes as the renaming of the whole plugin didn't play well with moodle.org.
+* 2019-10-22:     v1.1.2      Fixed an issue where images were not being created for users created via CSV upload.  Updated the dependencies.
 
 
 ## Licence
