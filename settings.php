@@ -52,6 +52,13 @@ if ($hassiteconfig) {
         'gd'
     ));
 
+    $link ='<a href="' . $CFG->wwwroot . '/local/ciabinitialsprofilepics/index.php">' . get_string('makeprofilepictureallwithout', 'local_ciabinitialsprofilepics') . '</a>';
+    $settings->add(new admin_setting_heading(
+        'local_ciabinitialsprofilepics/makeprofilepictureallwithout',
+        '',
+        $link
+    ));
+
     // Enable or disable the plugin.
     $settings->add(new admin_setting_configcheckbox(
         'local_ciabinitialsprofilepics/enabled',

@@ -29,6 +29,9 @@ $string['pluginname:testing'] = 'Initials Profile Pics - Testing';
 
 $string['settings'] = 'Settings';
 
+$string['makeprofilepictureallwithout'] = "Make a profile picture for all users who don't already have one";
+$string['makeprofilepictureall'] = 'Make a profile picture for all users';
+
 $string['enabled'] = 'Enabled?';
 $string['enabled_help'] = 'Check this box to make this plugin generate profile pictures; uncheck it to stop.';
 
